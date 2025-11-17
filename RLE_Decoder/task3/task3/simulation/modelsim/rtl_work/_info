@@ -1,0 +1,215 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/digital_lab/task3/simulation/modelsim
+Erle
+Z1 w1762456966
+Z2 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z4 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+R0
+Z5 8C:/digital_lab/task3/RLE.vhd
+Z6 FC:/digital_lab/task3/RLE.vhd
+l0
+L5
+VMIo:4WgAmfM8f@cdKgIF32
+!s100 f^Q`Udgi>Vhdk>X3<_lY43
+Z7 OV;C;10.5b;63
+31
+Z8 !s110 1762463716
+!i10b 1
+Z9 !s108 1762463715.000000
+Z10 !s90 -reportprogress|300|-93|-work|work|C:/digital_lab/task3/RLE.vhd|
+Z11 !s107 C:/digital_lab/task3/RLE.vhd|
+!i113 1
+Z12 o-93 -work work
+Z13 tExplicit 1 CvgOpt 0
+Artl
+Z14 DEx4 work 11 rle_decoder 0 22 h7EH[IKZBN:Qo:k0OX^Ue3
+Z15 DEx4 work 11 rle_encoder 0 22 4`RJJOFGEUR1e;4YAILm^3
+R2
+R3
+R4
+DEx4 work 3 rle 0 22 MIo:4WgAmfM8f@cdKgIF32
+l22
+L16
+V`5985=6?OhOlYS=U]KIB72
+!s100 REOBX?>UeOXmjXnOll4[:0
+R7
+31
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+R13
+Erle_decoder
+Z16 w1762456876
+R2
+R3
+R4
+R0
+Z17 8C:/digital_lab/task3/RLE_decoder.vhd
+Z18 FC:/digital_lab/task3/RLE_decoder.vhd
+l0
+L5
+Vh7EH[IKZBN:Qo:k0OX^Ue3
+!s100 6K]K8jY7l7DJ`6V;n:BCg2
+R7
+31
+Z19 !s110 1762463715
+!i10b 1
+R9
+Z20 !s90 -reportprogress|300|-93|-work|work|C:/digital_lab/task3/RLE_decoder.vhd|
+Z21 !s107 C:/digital_lab/task3/RLE_decoder.vhd|
+!i113 1
+R12
+R13
+Artl
+R2
+R3
+R4
+R14
+l58
+L17
+V;PTT6V43X=Lbkbi<MQkCV2
+!s100 _0MT8a6M>Xb5oCz[nJhB]1
+R7
+31
+R19
+!i10b 1
+R9
+R20
+R21
+!i113 1
+R12
+R13
+Erle_encoder
+Z22 w1762463624
+R2
+R3
+R4
+R0
+Z23 8C:/digital_lab/task3/RLE_encoder.vhd
+Z24 FC:/digital_lab/task3/RLE_encoder.vhd
+l0
+L5
+V4`RJJOFGEUR1e;4YAILm^3
+!s100 FWAV][_1TDE5kCM4jKF:?2
+R7
+31
+R19
+!i10b 1
+Z25 !s108 1762463714.000000
+Z26 !s90 -reportprogress|300|-93|-work|work|C:/digital_lab/task3/RLE_encoder.vhd|
+Z27 !s107 C:/digital_lab/task3/RLE_encoder.vhd|
+!i113 1
+R12
+R13
+Aarch
+R2
+R3
+R4
+R15
+l62
+L17
+VSSXj:VPT[2kR2=g3U<MBW0
+!s100 ;[hRJNnM7_WSU7Y<kHN032
+R7
+31
+R19
+!i10b 1
+R25
+R26
+R27
+!i113 1
+R12
+R13
+Etestbench
+Z28 w1762455812
+R3
+R4
+R0
+Z29 8C:/digital_lab/task3/Testbench.vhdl
+Z30 FC:/digital_lab/task3/Testbench.vhdl
+l0
+L4
+VL7N=bE4@XE?;`aNNSzSTL0
+!s100 =K:1DH_7Ch>TaEjF^>Un_3
+R7
+31
+R8
+!i10b 1
+Z31 !s108 1762463716.000000
+Z32 !s90 -reportprogress|300|-93|-work|work|C:/digital_lab/task3/Testbench.vhdl|
+Z33 !s107 C:/digital_lab/task3/Testbench.vhdl|
+!i113 1
+R12
+R13
+Asim
+R3
+R4
+DEx4 work 9 testbench 0 22 L7N=bE4@XE?;`aNNSzSTL0
+l23
+L7
+VWLNcNN?=cLAZ:BU]cQ?@60
+!s100 WD>`?gBk`3>9geR;BdDjT2
+R7
+31
+R8
+!i10b 1
+R31
+R32
+R33
+!i113 1
+R12
+R13
+Etoplevel
+Z34 w1762455730
+R2
+R3
+R4
+R0
+Z35 8C:/digital_lab/task3/Toplevel.vhdl
+Z36 FC:/digital_lab/task3/Toplevel.vhdl
+l0
+L5
+Vei];8D2T?dd_Uhz[T5Smz0
+!s100 g;Na?Y2KDe^gVIP;fJfFW3
+R7
+31
+R19
+!i10b 1
+R9
+Z37 !s90 -reportprogress|300|-93|-work|work|C:/digital_lab/task3/Toplevel.vhdl|
+Z38 !s107 C:/digital_lab/task3/Toplevel.vhdl|
+!i113 1
+R12
+R13
+Artl
+R2
+R3
+R4
+DEx4 work 8 toplevel 0 22 ei];8D2T?dd_Uhz[T5Smz0
+l76
+L14
+V=^Qo;Q>8OR_UiIK7Lomoj2
+!s100 Oee_czfjIJ4Xdb3IhU7a43
+R7
+31
+R19
+!i10b 1
+R9
+R37
+R38
+!i113 1
+R12
+R13

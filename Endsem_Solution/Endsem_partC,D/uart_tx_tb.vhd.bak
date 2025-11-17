@@ -1,0 +1,113 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity uart_tx_tb is
+end uart_tx_tb;
+
+architecture sim of uart_tx_tb is
+
+  -- Clock period constants
+  constant c_CLK_PERIOD : time := 20 ns;          -- 50 MHz system clock
+  constant c_CLKS_PER_BIT : integer := ;       -- depends on your clock and baud rate
+
+  -- DUT signals
+  signal clk         : std_logic := '0';
+  signal tx_dv       : std_logic := '0';
+  signal tx_byte     : std_logic_vector(7 downto 0) := (others => '0');
+  signal tx_active   : std_logic;
+  signal tx_serial   : std_logic;
+  signal tx_done     : std_logic;
+
+  -- Baud visualization clock
+  signal baud_clk    : std_logic := '0';
+
+begin
+  --------------------------------------------------------------------
+  -- Clock Generation (System Clock)
+  --------------------------------------------------------------------
+  clk_process : process
+  begin
+    clk <= '0';
+    wait for c_CLK_PERIOD/2;
+    clk <= '1';
+    wait for c_CLK_PERIOD/2;
+  end process;
+
+  --------------------------------------------------------------------
+  -- Baud Clock Generation (for waveform visualization)
+  --------------------------------------------------------------------
+  baud_clk_process : process
+  begin
+    baud_clk <= '1';
+    wait for (c_CLK_PERIOD * c_CLKS_PER_BIT) / 2;
+    baud_clk <= '0';
+    wait for (c_CLK_PERIOD * c_CLKS_PER_BIT) / 2;
+  end process;
+
+  --------------------------------------------------------------------
+  -- DUT Instance
+  --------------------------------------------------------------------
+  uut : entity work.UART_TX
+    generic map (
+      g_CLKS_PER_BIT => c_CLKS_PER_BIT
+    )
+    port map (
+      i_Clk       => clk,
+      i_TX_DV     => tx_dv,
+      i_TX_Byte   => tx_byte,
+      o_TX_Active => tx_active,
+      o_TX_Serial => tx_serial,
+      o_TX_Done   => tx_done
+    );
+
+  --------------------------------------------------------------------
+  -- Stimulus Process
+  --------------------------------------------------------------------
+  stim_proc : process
+  begin
+    -- Wait a little before starting
+    wait for 200 ns;
+
+    ----------------------------------------------------------------
+    -- Send Byte 1: 0x55
+    ----------------------------------------------------------------
+    report "Sending first byte: 0x55" severity note;
+    tx_byte <= x"55";
+    tx_dv <= '1';
+    wait for c_CLK_PERIOD;
+    tx_dv <= '0';
+
+    -- Wait for transmission to complete
+    wait until tx_done = '1';
+    wait for 200 ns;
+
+    ----------------------------------------------------------------
+    -- Send Byte 2: 0xA3
+    ----------------------------------------------------------------
+    report "Sending second byte: 0xA3" severity note;
+    tx_byte <= x"A3";
+    tx_dv <= '1';
+    wait for c_CLK_PERIOD;
+    tx_dv <= '0';
+
+    wait until tx_done = '1';
+    wait for 200 ns;
+
+    ----------------------------------------------------------------
+    -- Send Byte 3: 0x0F
+    ----------------------------------------------------------------
+    report "Sending third byte: 0x0F" severity note;
+    tx_byte <= x"0F";
+    tx_dv <= '1';
+    wait for c_CLK_PERIOD;
+    tx_dv <= '0';
+
+    wait until tx_done = '1';
+    wait for 200 ns;
+
+    ----------------------------------------------------------------
+    assert false report "Simulation finished." severity failure;
+  end process;
+
+end architecture;

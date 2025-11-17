@@ -1,0 +1,98 @@
+m255
+K4
+z2
+!s11e vcom 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/Maitreyee/Desktop/Digital_Lab/Endsem_UART/simulation/modelsim
+Euart_tx
+Z1 w1762576491
+Z2 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z4 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 0
+R0
+Z5 8C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem_UART/uart_tx.vhd
+Z6 FC:/Users/Maitreyee/Desktop/Digital_Lab/Endsem_UART/uart_tx.vhd
+l0
+L5 1
+VLeW>nGIa4XdVoSlBmC<f01
+!s100 2oU^DGlzn;[gzbVYW42e92
+Z7 OV;C;2020.1;71
+31
+Z8 !s110 1762576652
+!i10b 1
+Z9 !s108 1762576652.000000
+Z10 !s90 -reportprogress|300|-93|-work|work|C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem_UART/uart_tx.vhd|
+Z11 !s107 C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem_UART/uart_tx.vhd|
+!i113 1
+Z12 o-93 -work work
+Z13 tExplicit 1 CvgOpt 0
+Artl
+R2
+R3
+R4
+Z14 DEx4 work 7 uart_tx 0 22 LeW>nGIa4XdVoSlBmC<f01
+!i122 0
+l37
+L27 76
+V73nN?MGS:>E6RV6WRHBe92
+!s100 z:Wa8_fTI:1YUhlKIS2IS2
+R7
+31
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+R13
+Euart_tx_tb
+Z15 w1762576600
+R2
+R3
+R4
+!i122 1
+R0
+Z16 8C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem_UART/uart_tx_tb.vhd
+Z17 FC:/Users/Maitreyee/Desktop/Digital_Lab/Endsem_UART/uart_tx_tb.vhd
+l0
+L5 1
+VTTC>Djh8;LgQ?Ki>Rkbm80
+!s100 B4>:jHm^a_8N:h[zD33Gb2
+R7
+31
+R8
+!i10b 1
+R9
+Z18 !s90 -reportprogress|300|-93|-work|work|C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem_UART/uart_tx_tb.vhd|
+!s107 C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem_UART/uart_tx_tb.vhd|
+!i113 1
+R12
+R13
+Asim
+R14
+R2
+R3
+R4
+DEx4 work 10 uart_tx_tb 0 22 TTC>Djh8;LgQ?Ki>Rkbm80
+!i122 1
+l25
+L8 106
+VXNV:hWod0>]`H5GVJ68z70
+!s100 1U5K^eIA6<QR8T?:nm]<;1
+R7
+31
+R8
+!i10b 1
+R9
+R18
+Z19 !s107 C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem_UART/uart_tx_tb.vhd|
+!i113 1
+R12
+R13

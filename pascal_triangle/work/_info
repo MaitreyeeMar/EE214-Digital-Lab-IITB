@@ -1,0 +1,93 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/Digital_Systems_lab/Arya_Labs/Digital Course Project
+Epascal_triangle
+Z0 w1761732857
+Z1 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z3 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+Z4 dC:/Digital_Systems_lab/Arya_Labs/lab_10
+Z5 8C:/Digital_Systems_lab/Arya_Labs/lab_10/pascal_triangle.vhd
+Z6 FC:/Digital_Systems_lab/Arya_Labs/lab_10/pascal_triangle.vhd
+l0
+L4
+VbBi8QSYj9h0KIefP4=Smf2
+!s100 J[@@@f1ZK@JS10lmkgm[K1
+Z7 OV;C;10.5b;63
+32
+Z8 !s110 1761732920
+!i10b 1
+Z9 !s108 1761732920.000000
+Z10 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Digital_Systems_lab/Arya_Labs/lab_10/pascal_triangle.vhd|
+Z11 !s107 C:/Digital_Systems_lab/Arya_Labs/lab_10/pascal_triangle.vhd|
+!i113 1
+Z12 o-work work -2002 -explicit
+Z13 tExplicit 1 CvgOpt 0
+Abehav
+R1
+R2
+R3
+Z14 DEx4 work 15 pascal_triangle 0 22 bBi8QSYj9h0KIefP4=Smf2
+l28
+L14
+VBJjcWS[0LNAM=h0PAjMOJ3
+!s100 0KaT@hCQM2l6B95eFD_UK1
+R7
+32
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+R13
+Etb_pascal_triangle
+Z15 w1761732823
+R1
+R2
+R3
+R4
+Z16 8C:/Digital_Systems_lab/Arya_Labs/lab_10/tb_pascal_triangle.vhd
+Z17 FC:/Digital_Systems_lab/Arya_Labs/lab_10/tb_pascal_triangle.vhd
+l0
+L12
+VE9Rkf6@Sh<2okgkh;91=U3
+!s100 PzJ89`ciSUFSIHBM1HbU_3
+R7
+32
+Z18 !s110 1761732928
+!i10b 1
+Z19 !s108 1761732928.000000
+Z20 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Digital_Systems_lab/Arya_Labs/lab_10/tb_pascal_triangle.vhd|
+Z21 !s107 C:/Digital_Systems_lab/Arya_Labs/lab_10/tb_pascal_triangle.vhd|
+!i113 1
+R12
+R13
+Asim
+R14
+R1
+R2
+R3
+Z22 DEx4 work 18 tb_pascal_triangle 0 22 E9Rkf6@Sh<2okgkh;91=U3
+l26
+L15
+VJ_Nd8:@z0dV:ZlI:DgWK30
+!s100 P<b>?K94n0O49:eLG:QaL0
+R7
+32
+R18
+!i10b 1
+R19
+R20
+R21
+!i113 1
+R12
+R13

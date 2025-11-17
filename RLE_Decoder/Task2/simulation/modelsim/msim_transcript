@@ -1,0 +1,62 @@
+# Reading pref.tcl
+# ERROR: No extended dataflow license exists
+# do RLEDecoder_run_msim_rtl_vhdl.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Copying C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vcom -93 -work work {C:/Users/Maitreyee/Desktop/Digital_Lab/Task2/RLE_Decoder.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 14:31:29 on Nov 06,2025
+# vcom -reportprogress 300 -93 -work work C:/Users/Maitreyee/Desktop/Digital_Lab/Task2/RLE_Decoder.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity RLE_decoder
+# -- Compiling architecture rtl of RLE_decoder
+# End time: 14:31:29 on Nov 06,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vcom -93 -work work {C:/Users/Maitreyee/Desktop/Digital_Lab/Task2/Testbench.vhdl}
+# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 14:31:29 on Nov 06,2025
+# vcom -reportprogress 300 -93 -work work C:/Users/Maitreyee/Desktop/Digital_Lab/Task2/Testbench.vhdl 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity Testbench
+# -- Compiling architecture sim of Testbench
+# End time: 14:31:30 on Nov 06,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L fiftyfivenm -L rtl_work -L work -voptargs="+acc"  Testbench
+# vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L fiftyfivenm -L rtl_work -L work -voptargs=""+acc"" Testbench 
+# Start time: 14:31:30 on Nov 06,2025
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.testbench(sim)
+# Loading work.rle_decoder(rtl)
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+# ** Note: TEST PASSED: decoder output matches expected zigzag matrix
+#    Time: 1585 ns  Iteration: 0  Instance: /testbench
+# ** Failure: Simulation finished
+#    Time: 1585 ns  Iteration: 0  Process: /testbench/stimulus_process File: C:/Users/Maitreyee/Desktop/Digital_Lab/Task2/Testbench.vhdl
+# Break in Process stimulus_process at C:/Users/Maitreyee/Desktop/Digital_Lab/Task2/Testbench.vhdl line 181
+# End time: 14:32:34 on Nov 06,2025, Elapsed time: 0:01:04
+# Errors: 1, Warnings: 0

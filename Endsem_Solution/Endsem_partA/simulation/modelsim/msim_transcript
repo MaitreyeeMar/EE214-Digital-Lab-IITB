@@ -1,0 +1,61 @@
+# Reading pref.tcl
+# ERROR: No extended dataflow license exists
+# do endsem_run_msim_rtl_vhdl.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Copying C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vcom -93 -work work {C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem/Shift_Add_Sub.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 09:40:05 on Nov 08,2025
+# vcom -reportprogress 300 -93 -work work C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem/Shift_Add_Sub.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity Shift_Add_Sub
+# -- Compiling architecture behavioral of Shift_Add_Sub
+# End time: 09:40:05 on Nov 08,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vcom -93 -work work {C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem/shift_add_sub_tb.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 09:40:05 on Nov 08,2025
+# vcom -reportprogress 300 -93 -work work C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem/shift_add_sub_tb.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity shift_add_sub_tb
+# -- Compiling architecture sim of shift_add_sub_tb
+# -- Loading entity Shift_Add_Sub
+# End time: 09:40:05 on Nov 08,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L fiftyfivenm -L rtl_work -L work -voptargs="+acc"  shift_add_sub_tb
+# vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L fiftyfivenm -L rtl_work -L work -voptargs=""+acc"" shift_add_sub_tb 
+# Start time: 09:40:05 on Nov 08,2025
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.shift_add_sub_tb(sim)
+# Loading work.shift_add_sub(behavioral)
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+# ** Failure: All test cases PASSED successfully!
+#    Time: 70 ns  Iteration: 0  Process: /shift_add_sub_tb/stim_proc File: C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem/shift_add_sub_tb.vhd
+# Break in Process stim_proc at C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem/shift_add_sub_tb.vhd line 96
+# End time: 09:42:03 on Nov 08,2025, Elapsed time: 0:01:58
+# Errors: 1, Warnings: 0

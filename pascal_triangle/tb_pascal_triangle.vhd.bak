@@ -1,0 +1,85 @@
+-- ==========================================================
+-- Testbench for: pascal triangle 
+-- Author: Arya Patil
+-- Tools: Quartus Prime + ModelSim-Intel FPGA Edition
+-- ==========================================================
+
+library ieee;
+use ieee.std_logic_1164.all;
+
+-- Testbench has no ports
+entity tb_pascal_triangle is
+end entity tb_pascal_triangle;
+
+architecture sim of tb_pascal_triangle is
+
+    -- ============================================
+    -- Signal Declarations (virtual wires)
+    -- ============================================
+    signal clk : std_logic := '0';   -- Clock signal
+	 signal rst_n : std_logic :='1' ;
+	 signal start : std_logic :='0';
+	 signal n : unsigned(3 downto 0):=(others=>'0');  
+	 signal led : std_logic_vector(7 downto 0); -- Output from the DUT
+
+begin
+
+    -- ============================================
+    -- DUT Instantiation (Unit Under Test)
+    -- ============================================
+    uut: entity work.pascal_triangle
+        port map (
+            clk => clk,
+            rst_n   => rst_n,
+            start => start,
+				n => n,
+				led<=led
+        );
+
+    -- ============================================
+    -- Clock Generation Process
+    -- Creates a free-running clock of 20 ns period
+    -- ============================================
+    clk_process : process
+    begin
+        while true loop                   -- infinite loop
+            clk_in <= '0';
+            wait for 10 ns;               -- half period low
+            clk_in <= '1';
+            wait for 10 ns;               -- half period high
+        end loop;
+    end process clk_process;
+
+    -- ============================================
+    -- Stimulus Process
+    -- Applies various input combinations to DUT
+    -- ============================================
+    stimulus : process
+    begin
+        reset <= '0';
+        wait for 50 ns;
+        reset <= '1';
+        wait for 1000000000 ns;   -- Run simulation for 2 microseconds
+		  
+		  n<="0011";
+		  start<='1';
+		  wait for 20 ns;
+		  start<='0';
+		  wait for 2000 ns;
+		  
+		  n <= "0101";   -- n = 5
+        start <= '1';
+        wait for CLK_PERIOD;
+        start <= '0';
+
+        wait for 3000 ns;
+		  
+		  
+        wait;
+        -- End of simulation
+        assert false
+            report "Simulation completed successfully."
+            severity failure;  -- stops the simulation
+    end process stimulus;
+
+end architecture sim;

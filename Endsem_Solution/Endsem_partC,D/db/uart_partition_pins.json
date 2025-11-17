@@ -1,0 +1,61 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "o_TX_Active",
+					"strict" : false
+				},
+				{
+					"name" : "o_TX_Serial",
+					"strict" : false
+				},
+				{
+					"name" : "o_TX_Done",
+					"strict" : false
+				},
+				{
+					"name" : "i_TX_DV",
+					"strict" : false
+				},
+				{
+					"name" : "i_Clk",
+					"strict" : false
+				},
+				{
+					"name" : "i_TX_Byte[6]",
+					"strict" : false
+				},
+				{
+					"name" : "i_TX_Byte[5]",
+					"strict" : false
+				},
+				{
+					"name" : "i_TX_Byte[4]",
+					"strict" : false
+				},
+				{
+					"name" : "i_TX_Byte[7]",
+					"strict" : false
+				},
+				{
+					"name" : "i_TX_Byte[2]",
+					"strict" : false
+				},
+				{
+					"name" : "i_TX_Byte[1]",
+					"strict" : false
+				},
+				{
+					"name" : "i_TX_Byte[0]",
+					"strict" : false
+				},
+				{
+					"name" : "i_TX_Byte[3]",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

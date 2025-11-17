@@ -1,0 +1,147 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity stringdetector is
+    port (
+        s 					: in  std_logic_vector(4 downto 0);
+        rst , clk			: in  std_logic;
+        output          : out std_logic
+       );
+end entity;
+
+architecture behavioural of stringdetector is
+	 type state_type is (s_c , s_o , s_m , s1_e , s_2, --come2
+								s2_d , s_a , s_r , s_k ,--dark
+								s_s , s_i , s3_d , s3_e --side 
+								);
+    signal current_state , next_state : state_type ;
+    signal detect : std_logic_vector(2 downto 0);
+
+begin
+ process(clk, rst)
+    begin
+        if rst = '1' then
+            current_state <= s_c; 
+        elsif rising_edge(clk) then
+            current_state <= next_state;
+        end if;
+ end process;
+
+ process(current_state, s)
+    begin
+        next_state <= current_state; --default
+        detect <= '0';
+				-- come2
+        case current_state is
+            when s_c =>
+                if s = "00011" then   -- 'c'
+                    next_state <= s_o;
+                else
+                    next_state <= s_c;
+                end if;
+
+            when s_o =>
+                if s = "01111" then   -- 'o'
+                    next_state <= s_m;
+                else
+                    next_state <= s_c;
+                end if;
+
+            when s_m =>
+                if s = "01101" then   -- 'm'
+                    next_state <= s1_e;
+                else
+                    next_state <= s_c;
+                end if;
+
+            when s1_e =>
+                if s = "00101" then   -- 'e'
+                    next_state <= s_2;
+                else
+                    next_state <= s_c;
+                end if;
+
+            when s_2 =>
+                if s = "11101" then   -- '2'
+                    detect(0) <= '1';     -- sequence detected
+                    next_state <= s_c;
+                else
+                    next_state <= s_c;
+                end if;
+
+
+            when others =>
+                next_state <= s_c;
+        end case;
+		  
+		  --dark
+		  case current_state is
+            when s_c =>
+                if s = "00100" then   -- 'd'
+                    next_state <= s2_d;
+                else
+                    next_state <= s_c;
+                end if;
+
+            when s2_d =>
+                if s = "00001" then   -- 'a'
+                    next_state <= s_a;
+                else
+                    next_state <= s_c;
+                end if;
+
+            when s_a =>
+                if s = "10010" then   -- 'r'
+                    next_state <= s_r;
+                else
+                    next_state <= s_c;
+                end if;
+
+            when s_r =>
+                if s = "01011" then   -- 'k'
+                    detect(1) <= '1';     -- sequence detected
+                else
+                    next_state <= s_c;
+                end if;
+            when others =>
+                next_state <= s_c;
+        end case;
+		  
+		  --side
+		  case current_state is
+            when s_c =>
+                if s = "10011" then   -- 's'
+                    next_state <= s_s;
+                else
+                    next_state <= s_c;
+                end if;
+
+            when s_s =>
+                if s = "01001" then   -- 'i'
+                    next_state <= s_i;
+                else
+                    next_state <= s_c;
+                end if;
+
+            when s_i =>
+                if s = "00010" then   -- 'd'
+                    next_state <= s3_d;
+                else
+                    next_state <= s_c;
+                end if;
+
+            when s3_d =>
+                if s = "00101" then   -- 'e'
+                    detect(2) <= '1';     -- sequence detected
+                else
+                    next_state <= s_c;
+                end if;
+            when others =>
+                next_state <= s_c;
+        end case;
+		  
+ end process;
+ 
+ output <= detect(0) or detect(1) or detect(2) ; 
+	
+end architecture;

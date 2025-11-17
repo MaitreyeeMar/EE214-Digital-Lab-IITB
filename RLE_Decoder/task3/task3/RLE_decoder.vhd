@@ -1,0 +1,128 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity RLE_decoder is
+port (
+  clk : in std_logic;
+  reset : in std_logic;
+  data_in : in std_logic_vector(15 downto 0);
+  start : in std_logic;
+  reduced_length : in unsigned(7 downto 0);
+  data_out : out std_logic_vector(7 downto 0);
+  done : out std_logic
+);
+end entity;
+
+architecture rtl of RLE_decoder is
+----------------------------------------------------------------
+-- Matrix storage
+----------------------------------------------------------------
+type mem_t is array (0 to 63) of std_logic_vector(7 downto 0);
+signal mem : mem_t;
+----------------------------------------------------------------
+-- RLE buffer
+----------------------------------------------------------------
+type rle_t is array (0 to 255) of std_logic_vector(15 downto 0);
+signal rle_buffer : rle_t;
+----------------------------------------------------------------
+-- Zigzag LUT (same as encoder)
+----------------------------------------------------------------
+type zigzag_t is array (0 to 63) of integer range 0 to 63;
+constant zigzag_order : zigzag_t := (
+  0, 1, 8,
+  16, 9, 2,
+  3, 10, 17, 24,
+  32, 25, 18, 11, 4,
+  5, 12, 19, 26, 33, 40,
+  48, 41, 34, 27, 20, 13, 6,
+  7, 14, 21, 28, 35, 42, 49, 56,
+  57, 50, 43, 36, 29, 22, 15,
+  23, 30, 37, 44, 51, 58,
+  59, 52, 45, 38, 31,
+  39, 46, 53, 60,
+  61, 54, 47,
+  55, 62,
+  63
+);
+----------------------------------------------------------------
+type state_fsm is (A, B, C, D, E);
+signal state : state_fsm := A;
+
+signal mem_idx    : integer := 0;
+signal rle_idx    : integer := 0;
+signal temp       : integer := 0;
+signal out_idx    : integer := 0;
+signal latched_length : unsigned(7 downto 0) := (others=>'0'); -- *** Length is now latched! ***
+
+begin
+----------------------------------------------------------------
+process(clk,reset)
+  variable count : integer;
+begin
+  if reset='1' then
+    state <= A;
+    mem_idx <= 0;
+    rle_idx <= 0;
+    temp    <= 0;
+    done    <= '0';
+    data_out <= (others => '0');
+    out_idx  <= 0;
+    latched_length <= (others=>'0');
+  elsif rising_edge(clk) then
+    case state is
+      when A =>
+        done <= '0';
+        mem_idx <= 0;
+        rle_idx <= 0;
+        out_idx <= 0;
+        temp    <= 0;
+        -- Latch the reduced_length only when start=1
+        if start = '1' then
+          latched_length <= reduced_length;
+          rle_idx <= 1;
+          rle_buffer(0) <= data_in;
+          state <= B;
+        end if;
+      when B =>
+        if rle_idx < to_integer(unsigned(latched_length)) then
+          rle_buffer(rle_idx) <= data_in;
+          rle_idx <= rle_idx + 1;
+        else  -- Finished loading RLE data, move to expansion
+          mem_idx <= 0;
+          temp    <= 0;
+          rle_idx <= 0;
+          state   <= C;
+        end if;
+      when C =>
+        if rle_idx < to_integer(unsigned(latched_length)) then
+          count := to_integer(unsigned(rle_buffer(rle_idx)(15 downto 8)));
+          if temp < count then
+            mem(zigzag_order(mem_idx)) <= rle_buffer(rle_idx)(7 downto 0);
+            temp   <= temp + 1;
+            mem_idx <= mem_idx + 1;
+          else
+            temp   <= 0;   -- Reset for next run
+            rle_idx <= rle_idx + 1;  -- Move to next RLE
+          end if;
+        else
+          out_idx <= 0;
+          state <= D;
+        end if;
+      when D =>
+  if out_idx < 64 then
+    data_out <= mem(out_idx);
+    out_idx  <= out_idx + 1;
+    done     <= '1'; -- 'done' is asserted for all valid output cycles!
+  else
+    done     <= '0';
+    state    <= A;
+  end if;
+
+      when others =>
+        state <= A;
+    end case;
+  end if;
+end process;
+
+end architecture;

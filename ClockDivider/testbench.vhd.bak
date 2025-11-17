@@ -1,0 +1,45 @@
+library std;
+use std.textio.all;
+
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity tb_ClockDivider is
+end entity;
+
+architecture Behave of tb_ClockDivider is
+
+  constant number_of_inputs  : integer := 2;  -- clk_in, rst
+  constant number_of_outputs : integer := 1;  -- clk_out
+
+  component ClockDivider is
+    port (
+      clk_in  : in std_logic;
+      rst     : in std_logic;
+      clk_out : out std_logic
+    );
+  end component;
+
+  signal input_vector  : std_logic_vector(number_of_inputs - 1 downto 0);
+  signal output_vector : std_logic_vector(number_of_outputs - 1 downto 0);
+
+  -- Helper functions to convert std_logic_vector types as needed, similar to yours
+  -- (You can reuse the to_string, to_std_logic_vector and to_bit_vector functions)
+
+begin
+
+  -- DUT instance
+  dut_instance: ClockDivider port map (
+    clk_in  => input_vector(1),  -- assuming input_vector(1) is clk_in
+    rst     => input_vector(0),  -- assuming input_vector(0) is rst
+    clk_out => output_vector(0)
+  );
+
+  -- Stimulus and checker process for file I/O similar to yours
+  -- Read inputs (clk_in and rst) from TRACEFILE.txt,
+  -- Apply to input_vector,
+  -- Wait for stabilization,
+  -- Read output and compare expected output,
+  -- Write results to outputs.txt.
+
+end Behave;

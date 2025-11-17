@@ -1,0 +1,96 @@
+library ieee;
+use ieee.numeric_std.all;
+entity pascal_triangle is
+port(
+clk : in std_logic;
+rst_n : in std_logic;
+start : in std_logic;
+n : in unsigned(3 downto 0);
+led : out std_logic_vector(7 downto 0)
+);
+end pascal_triangle;
+
+architecture behav of pascal_triangle is
+type state_type is (A, B, C, D, E);
+signal state: state_type :=A;
+
+type t_arr is array(0 to 15) of unsigned(7 downto 0);
+signal prev_row, next_row: t_arr:=(others=>(others=>'0'));
+
+signal curr_row_index: integer:=0;
+signal element_index  : integer := 0;
+
+constant clk_freq: integer:= 50000000;
+constant DELAY_2s: integer:= 2* clk_freq;
+signal delay_counter: integer:=0;
+
+begin 
+
+process(clk, rst_n)
+begin
+	if rst_n='0' then
+		state<=A;
+	elsif rising_edge(clk) then
+		
+		
+	case state is
+		
+		when A=>
+			led<=(others=>'0');
+			if start='1' then
+				curr_row_index<=0;
+				state<=B;
+			end if;
+			
+		when B=>
+			prev_row(0)<=to_unsigned(1,8); ----ROW(0)={1}
+			curr_row_index<=1;
+			state<=C;
+			
+		when C=>
+			if curr_row_index<=to_integer(n) then
+				next_row(0)<=to_unsigned(1,8);
+				for i in 1 to curr_row_index-1 loop
+					next_row(k)<=prev_row(k-1)+prev_row(k);
+				end loop;
+				next_row(curr_row_index)<=to_unsigned(1,8);
+				prev_row<=next_row;
+				
+				if curr_row_index=to_integer(n) then
+					element_index<=0;
+					state<=D;
+				else 
+				curr_row_index<=curr_row_index+1;
+				end if;
+				
+			else
+				state<=E;
+			end if;
+			
+		when D=>
+			led<=std_logic_vector(prev_row(element_index));
+			if delay_counter = DELAY_2s then
+				delay_counter<=0;
+				
+				if element_index=curr_row_index then
+					state<=E;
+				else
+					element_index<=element_index+1;
+				end if;
+			else 
+				delay_counter<=delay_counter+1;
+			end if;
+			
+		when E=>
+			if start = '1' then
+				state <= IDLE;
+         end if;
+	end case;
+	end if;
+end process;
+end behav;if start = '1' then
+                        state <= IDLE;
+                    end if;
+			
+
+

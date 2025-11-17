@@ -1,0 +1,157 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity UART is
+    generic (
+        g_CLKS_PER_BIT : integer := 521  -- For 5 MHz clock and 9600 baud
+    );
+    port (
+        i_Clk       : in  std_logic;                     -- 50 MHz input clock
+        i_RX_Serial : in  std_logic;
+        rst         : in  std_logic;
+        o_LED       : out std_logic_vector(7 downto 0)   -- LED output
+    );
+end UART;
+
+architecture rtl of UART is
+
+    -- Internal 5 MHz and 2 Hz clocks from clock divider
+    signal clk_5MHz : std_logic;
+    signal clk_2Hz  : std_logic;
+
+    -- UART RX Signals
+    type t_SM_Main is (s_Idle, s_RX_Start_Bit, s_RX_Data_Bits, s_RX_Stop_Bit, s_Cleanup);
+    signal r_SM_Main   : t_SM_Main := s_Idle;
+    signal r_RX_Data_R : std_logic := '0';
+    signal r_RX_Data   : std_logic := '0';
+    signal r_Clk_Count : integer range 0 to g_CLKS_PER_BIT - 1 := 0;
+    signal r_Bit_Index : integer range 0 to 7 := 0;
+    signal r_RX_Byte   : std_logic_vector(7 downto 0) := (others => '0');
+    signal r_RX_DV     : std_logic := '0';
+
+    -- LED Counter State
+    signal r_LED : std_logic_vector(7 downto 0) := "00000001";
+    signal mode  : std_logic_vector(7 downto 0) := (others => '0');
+
+    -- Component declaration for Clock Divider
+    component ClockDivider is
+        port (
+            clk_in       : in  std_logic;
+            rst          : in  std_logic;
+            clk_out_5MHz : out std_logic;
+            clk_out_2Hz  : out std_logic
+        );
+    end component;
+
+begin
+
+    -- Instantiate the clock divider
+    u_clk_div : ClockDivider
+        port map (
+            clk_in       => i_Clk,
+            rst          => rst,
+            clk_out_5MHz => clk_5MHz,
+            clk_out_2Hz  => clk_2Hz
+        );
+
+    -- Double-register incoming serial data
+    p_SAMPLE : process(clk_5MHz)
+    begin
+        if rising_edge(clk_5MHz) then
+            r_RX_Data_R <= i_RX_Serial;
+            r_RX_Data   <= r_RX_Data_R;
+        end if;
+    end process p_SAMPLE;
+
+    -- UART RX State Machine using 5 MHz clock
+    p_UART_RX : process(clk_5MHz)
+    begin
+        if rising_edge(clk_5MHz) then
+            case r_SM_Main is
+                when s_Idle =>
+                    r_RX_DV     <= '0';
+                    r_Clk_Count <= 0;
+                    r_Bit_Index <= 0;
+                    if r_RX_Data = '0' then
+                        r_SM_Main <= s_RX_Start_Bit;
+                    else
+                        r_SM_Main <= s_Idle;
+                    end if;
+
+                when s_RX_Start_Bit =>
+                    if r_Clk_Count = (g_CLKS_PER_BIT-1)/2 then
+                        if r_RX_Data = '0' then
+                            r_Clk_Count <= 0;
+                            r_SM_Main <= s_RX_Data_Bits;
+                        else
+                            r_SM_Main <= s_Idle;
+                        end if;
+                    else
+                        r_Clk_Count <= r_Clk_Count + 1;
+                        r_SM_Main <= s_RX_Start_Bit;
+                    end if;
+
+                when s_RX_Data_Bits =>
+                    if r_Clk_Count < g_CLKS_PER_BIT-1 then
+                        r_Clk_Count <= r_Clk_Count + 1;
+                        r_SM_Main <= s_RX_Data_Bits;
+                    else
+                        r_Clk_Count <= 0;
+                        r_RX_Byte(r_Bit_Index) <= r_RX_Data;
+                        if r_Bit_Index < 7 then
+                            r_Bit_Index <= r_Bit_Index + 1;
+                            r_SM_Main <= s_RX_Data_Bits;
+                        else
+                            r_Bit_Index <= 0;
+                            r_SM_Main <= s_RX_Stop_Bit;
+                        end if;
+                    end if;
+
+                when s_RX_Stop_Bit =>
+                    if r_Clk_Count < g_CLKS_PER_BIT-1 then
+                        r_Clk_Count <= r_Clk_Count + 1;
+                        r_SM_Main <= s_RX_Stop_Bit;
+                    else
+                        r_RX_DV <= '1';
+                        r_Clk_Count <= 0;
+                        r_SM_Main <= s_Cleanup;
+                    end if;
+
+                when s_Cleanup =>
+                    r_SM_Main <= s_Idle;
+                    r_RX_DV <= '0';
+                    mode <= r_RX_Byte;
+
+                when others =>
+                    r_SM_Main <= s_Idle;
+            end case;
+        end if;
+    end process p_UART_RX;
+
+    -- LED Control : Johnson or Ring counter based on mode
+    p_LED : process(clk_2Hz)
+    begin
+        if rising_edge(clk_2Hz) then
+            case mode is
+
+                -- Johnson Counter 
+                when x"31" =>
+                    r_LED <= r_LED(6 downto 0) & not r_LED(7);
+
+                -- Ring Counter
+                when x"32" =>
+                    r_LED <= r_LED(6 downto 0) & r_LED(7);
+
+                -- Default / reset
+                when others =>
+                    r_LED <= "00000001";
+
+            end case;
+        end if;
+    end process p_LED;
+
+    -- Output assignment
+    o_LED <= r_LED;
+
+end rtl;

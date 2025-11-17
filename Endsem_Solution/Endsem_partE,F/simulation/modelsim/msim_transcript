@@ -1,0 +1,107 @@
+# Reading pref.tcl
+# ERROR: No extended dataflow license exists
+# do endsem_last_run_msim_rtl_vhdl.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Copying C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vcom -93 -work work {C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem_lastpart/uart_tx.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 10:31:20 on Nov 08,2025
+# vcom -reportprogress 300 -93 -work work C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem_lastpart/uart_tx.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity UART_TX
+# -- Compiling architecture rtl of UART_TX
+# End time: 10:31:20 on Nov 08,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem_lastpart/uart_rx.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 10:31:20 on Nov 08,2025
+# vcom -reportprogress 300 -93 -work work C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem_lastpart/uart_rx.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity UART_RX
+# -- Compiling architecture rtl of UART_RX
+# End time: 10:31:20 on Nov 08,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem_lastpart/Shift_Add_Sub.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 10:31:20 on Nov 08,2025
+# vcom -reportprogress 300 -93 -work work C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem_lastpart/Shift_Add_Sub.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity Shift_Add_Sub
+# -- Compiling architecture behavioral of Shift_Add_Sub
+# End time: 10:31:20 on Nov 08,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem_lastpart/uart.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 10:31:21 on Nov 08,2025
+# vcom -reportprogress 300 -93 -work work C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem_lastpart/uart.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity uart
+# -- Compiling architecture rtl of uart
+# -- Loading entity UART_RX
+# -- Loading entity UART_TX
+# -- Loading entity Shift_Add_Sub
+# End time: 10:31:21 on Nov 08,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vcom -93 -work work {C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem_lastpart/uart_tb.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 10:31:21 on Nov 08,2025
+# vcom -reportprogress 300 -93 -work work C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem_lastpart/uart_tb.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity uart_tb
+# -- Compiling architecture sim of uart_tb
+# -- Loading entity uart
+# End time: 10:31:21 on Nov 08,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L fiftyfivenm -L rtl_work -L work -voptargs="+acc"  uart_tb
+# vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L fiftyfivenm -L rtl_work -L work -voptargs=""+acc"" uart_tb 
+# Start time: 10:31:21 on Nov 08,2025
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.uart_tb(sim)
+# Loading work.uart(rtl)
+# Loading work.uart_rx(rtl)
+# Loading work.uart_tx(rtl)
+# Loading work.shift_add_sub(behavioral)
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+# ** Note: Sending A = 0x06
+#    Time: 200 ns  Iteration: 0  Instance: /uart_tb
+# ** Note: Sending B = 0x05
+#    Time: 1250120 ns  Iteration: 0  Instance: /uart_tb
+# ** Failure: Simulation finished.
+#    Time: 3541640 ns  Iteration: 0  Process: /uart_tb/stim_proc File: C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem_lastpart/uart_tb.vhd
+# Break in Process stim_proc at C:/Users/Maitreyee/Desktop/Digital_Lab/Endsem_lastpart/uart_tb.vhd line 101
+# End time: 10:33:36 on Nov 08,2025, Elapsed time: 0:02:15
+# Errors: 1, Warnings: 0

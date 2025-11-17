@@ -1,0 +1,12 @@
+Power Analyzer Status : Successful - Fri Oct 17 13:46:33 2025
+Quartus Prime Version : 20.1.1 Build 720 11/11/2020 SJ Lite Edition
+Revision Name : stringdetector
+Top-level Entity Name : TopLevel
+Family : MAX 10
+Device : 10M25SAE144C8G
+Power Models : Final
+Total Thermal Power Dissipation : 231.38 mW
+Core Dynamic Thermal Power Dissipation : 1.35 mW
+Core Static Thermal Power Dissipation : 223.01 mW
+I/O Thermal Power Dissipation : 7.02 mW
+Power Estimation Confidence : Low: user provided insufficient toggle rate data

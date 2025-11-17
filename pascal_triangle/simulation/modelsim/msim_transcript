@@ -1,0 +1,67 @@
+# Reading pref.tcl
+# ERROR: No extended dataflow license exists
+# do pascal_triangle_run_msim_rtl_vhdl.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Copying C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vcom -93 -work work {C:/Users/Maitreyee/Desktop/Digital_Lab/pascal_triangle/pascal_triangle.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 20:27:12 on Nov 02,2025
+# vcom -reportprogress 300 -93 -work work C:/Users/Maitreyee/Desktop/Digital_Lab/pascal_triangle/pascal_triangle.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity pascal_triangle
+# -- Compiling architecture behav of pascal_triangle
+# End time: 20:27:12 on Nov 02,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vcom -93 -work work {C:/Users/Maitreyee/Desktop/Digital_Lab/pascal_triangle/tb_pascal_triangle.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 20:27:12 on Nov 02,2025
+# vcom -reportprogress 300 -93 -work work C:/Users/Maitreyee/Desktop/Digital_Lab/pascal_triangle/tb_pascal_triangle.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity tb_pascal_triangle
+# -- Compiling architecture sim of tb_pascal_triangle
+# -- Loading entity pascal_triangle
+# End time: 20:27:13 on Nov 02,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L fiftyfivenm -L rtl_work -L work -voptargs="+acc"  tb_pascal_triangle
+# vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L fiftyfivenm -L rtl_work -L work -voptargs=""+acc"" tb_pascal_triangle 
+# Start time: 20:27:13 on Nov 02,2025
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.tb_pascal_triangle(sim)
+# Loading work.pascal_triangle(behav)
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+# ** Note: Starting test for n = 3
+#    Time: 150 ns  Iteration: 0  Instance: /tb_pascal_triangle
+# ** Note: Starting test for n = 5
+#    Time: 5000250 ns  Iteration: 0  Instance: /tb_pascal_triangle
+# ** Note: Simulation completed successfully.
+#    Time: 12000350 ns  Iteration: 0  Instance: /tb_pascal_triangle
+# ** Failure: Simulation finished.
+#    Time: 12000350 ns  Iteration: 0  Process: /tb_pascal_triangle/stimulus File: C:/Users/Maitreyee/Desktop/Digital_Lab/pascal_triangle/tb_pascal_triangle.vhd
+# Break in Process stimulus at C:/Users/Maitreyee/Desktop/Digital_Lab/pascal_triangle/tb_pascal_triangle.vhd line 73
+# End time: 21:45:35 on Nov 02,2025, Elapsed time: 1:18:22
+# Errors: 1, Warnings: 0

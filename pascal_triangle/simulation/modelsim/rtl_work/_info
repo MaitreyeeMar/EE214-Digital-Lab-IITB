@@ -1,0 +1,98 @@
+m255
+K4
+z2
+!s11e vcom 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/Maitreyee/Desktop/Digital_Lab/pascal_triangle/simulation/modelsim
+Epascal_triangle
+Z1 w1761804675
+Z2 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z4 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 0
+R0
+Z5 8C:/Users/Maitreyee/Desktop/Digital_Lab/pascal_triangle/pascal_triangle.vhd
+Z6 FC:/Users/Maitreyee/Desktop/Digital_Lab/pascal_triangle/pascal_triangle.vhd
+l0
+L5 1
+Vj=e4N_`QgU7eoXFdk:BTJ0
+!s100 Q8]YJR]?If?^C7VV1jE302
+Z7 OV;C;2020.1;71
+31
+Z8 !s110 1762095432
+!i10b 1
+Z9 !s108 1762095432.000000
+Z10 !s90 -reportprogress|300|-93|-work|work|C:/Users/Maitreyee/Desktop/Digital_Lab/pascal_triangle/pascal_triangle.vhd|
+Z11 !s107 C:/Users/Maitreyee/Desktop/Digital_Lab/pascal_triangle/pascal_triangle.vhd|
+!i113 1
+Z12 o-93 -work work
+Z13 tExplicit 1 CvgOpt 0
+Abehav
+R2
+R3
+R4
+Z14 DEx4 work 15 pascal_triangle 0 22 j=e4N_`QgU7eoXFdk:BTJ0
+!i122 0
+l32
+L15 101
+V7W=Pnb8kZTzSXA^11lalo1
+!s100 Pb1f41Tj4a4>J@jk@7[XP0
+R7
+31
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+R13
+Etb_pascal_triangle
+Z15 w1761804674
+R2
+R3
+R4
+!i122 1
+R0
+Z16 8C:/Users/Maitreyee/Desktop/Digital_Lab/pascal_triangle/tb_pascal_triangle.vhd
+Z17 FC:/Users/Maitreyee/Desktop/Digital_Lab/pascal_triangle/tb_pascal_triangle.vhd
+l0
+L5 1
+Vc`cWVeK3:;XoinVfN7a]11
+!s100 B8G>9_OETEcAXmSPK1F3^3
+R7
+31
+Z18 !s110 1762095433
+!i10b 1
+R9
+Z19 !s90 -reportprogress|300|-93|-work|work|C:/Users/Maitreyee/Desktop/Digital_Lab/pascal_triangle/tb_pascal_triangle.vhd|
+!s107 C:/Users/Maitreyee/Desktop/Digital_Lab/pascal_triangle/tb_pascal_triangle.vhd|
+!i113 1
+R12
+R13
+Asim
+R14
+R2
+R3
+R4
+DEx4 work 18 tb_pascal_triangle 0 22 c`cWVeK3:;XoinVfN7a]11
+!i122 1
+l20
+L8 71
+VSCNNIN6F^ihQl36X8FTcP2
+!s100 PVHEeNZKHbi8fW5hkVG2P3
+R7
+31
+R18
+!i10b 1
+R9
+R19
+Z20 !s107 C:/Users/Maitreyee/Desktop/Digital_Lab/pascal_triangle/tb_pascal_triangle.vhd|
+!i113 1
+R12
+R13

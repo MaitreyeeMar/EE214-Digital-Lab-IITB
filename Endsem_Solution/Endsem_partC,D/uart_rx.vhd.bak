@@ -1,0 +1,186 @@
+--==============================================================
+-- UART Receiver (UART_RX)
+--==============================================================
+-- This UART Receiver captures serial data and reconstructs it
+-- into 8-bit parallel data.
+--
+-- It looks for:
+--   - 1 Start Bit  ('0')
+--   - 8 Data Bits  (LSB first)
+--   - 1 Stop Bit   ('1')
+--
+-- When a full byte is received, o_RX_DV (Data Valid) goes high
+-- for one clock cycle, and o_RX_Byte holds the received data.
+--==============================================================
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+ 
+entity UART_RX is
+  generic (
+    g_CLKS_PER_BIT : integer := 5208;   -- Must be set for your clock and baud rate
+  );
+  port (
+    i_Clk       : in  std_logic;                      -- System clock
+    i_RX_Serial : in  std_logic;                      -- UART serial input line
+    o_RX_DV     : out std_logic;                      -- Data valid pulse (1 clk)
+    o_RX_Byte   : out std_logic_vector(7 downto 0)    -- Received byte
+  );
+end UART_RX;
+ 
+ 
+architecture rtl of UART_RX is
+
+  ----------------------------------------------------------------
+  -- Define receiver states
+  ----------------------------------------------------------------
+  type t_SM_Main is (
+    s_Idle,          -- Waiting for start bit
+    s_RX_Start_Bit,  -- Verifying start bit
+    s_RX_Data_Bits,  -- Reading 8 data bits
+    s_RX_Stop_Bit,   -- Waiting for stop bit
+    s_Cleanup        -- Byte complete, cleanup before next frame
+  );
+  signal r_SM_Main : t_SM_Main := s_Idle;
+
+  ----------------------------------------------------------------
+  -- Internal signals
+  ----------------------------------------------------------------
+  signal r_RX_Data_R : std_logic := '0';   -- 1st stage of input synchronizer
+  signal r_RX_Data   : std_logic := '0';   -- 2nd stage (synchronized input)
+   
+  signal r_Clk_Count : integer range 0 to g_CLKS_PER_BIT-1 := 0;  -- Bit timing counter
+  signal r_Bit_Index : integer range 0 to 7 := 0;                 -- Counts received bits (0–7)
+  signal r_RX_Byte   : std_logic_vector(7 downto 0) := (others => '0'); -- Assembled byte
+  signal r_RX_DV     : std_logic := '0';                          -- Data valid flag
+   
+begin
+
+  ----------------------------------------------------------------
+  -- PROCESS 1: Input Synchronizer
+  ----------------------------------------------------------------
+  -- The RX input is asynchronous to the system clock.
+  -- Double-registering it avoids metastability problems.
+  ----------------------------------------------------------------
+  p_SAMPLE : process (i_Clk)
+  begin
+    if rising_edge(i_Clk) then
+      r_RX_Data_R <= i_RX_Serial;
+      r_RX_Data   <= r_RX_Data_R;
+    end if; 
+  end process p_SAMPLE;
+ 
+
+  ----------------------------------------------------------------
+  -- PROCESS 2: UART Receiver State Machine
+  ----------------------------------------------------------------
+  -- This FSM detects the start bit, samples each data bit at
+  -- the correct intervals, waits for the stop bit, and outputs
+  -- the received byte.
+  ----------------------------------------------------------------
+  p_UART_RX : process (i_Clk)
+  begin
+    if rising_edge(i_Clk) then
+      case r_SM_Main is
+
+        ----------------------------------------------------------
+        -- IDLE STATE
+        -- Line is high ('1') when idle.
+        -- Wait until start bit ('0') is detected.
+        ----------------------------------------------------------
+        when s_Idle =>
+          r_RX_DV     <= '0';
+          r_Clk_Count <= 0;
+          r_Bit_Index <= 0;
+
+          if r_RX_Data = '0' then           -- Start bit detected
+            r_SM_Main <= s_RX_Start_Bit;
+          else
+            r_SM_Main <= s_Idle;
+          end if;
+
+
+        ----------------------------------------------------------
+        -- START BIT CHECK
+        -- Wait for half of the bit time, then sample again.
+        -- If line is still '0', it's a valid start bit.
+        ----------------------------------------------------------
+        when s_RX_Start_Bit =>
+          if r_Clk_Count = (g_CLKS_PER_BIT-1)/2 then
+            if r_RX_Data = '0' then
+              r_Clk_Count <= 0;             -- Reset counter
+              r_SM_Main   <= s_RX_Data_Bits;-- Move to data state
+            else
+              r_SM_Main   <= s_Idle;        -- False start, return idle
+            end if;
+          else
+            r_Clk_Count <= r_Clk_Count + 1;
+            r_SM_Main   <= s_RX_Start_Bit;
+          end if;
+
+
+        ----------------------------------------------------------
+        -- DATA BITS RECEPTION
+        -- Sample each bit in the middle of its period.
+        -- Store bits LSB-first into r_RX_Byte.
+        ----------------------------------------------------------
+        when s_RX_Data_Bits =>
+          if r_Clk_Count < g_CLKS_PER_BIT-1 then
+            r_Clk_Count <= r_Clk_Count + 1;
+            r_SM_Main   <= s_RX_Data_Bits;
+          else
+            r_Clk_Count            <= 0;
+            r_RX_Byte(r_Bit_Index) <= r_RX_Data;   -- Capture bit
+
+            -- Move to next bit or next state
+            if r_Bit_Index < 7 then
+              r_Bit_Index <= r_Bit_Index + 1;
+              r_SM_Main   <= s_RX_Data_Bits;
+            else
+              r_Bit_Index <= 0;
+              r_SM_Main   <= s_RX_Stop_Bit;
+            end if;
+          end if;
+
+
+        ----------------------------------------------------------
+        -- STOP BIT CHECK
+        -- Wait one full bit period and expect line high ('1').
+        -- If valid, assert Data Valid.
+        ----------------------------------------------------------
+        when s_RX_Stop_Bit =>
+          if r_Clk_Count < g_CLKS_PER_BIT-1 then
+            r_Clk_Count <= r_Clk_Count + 1;
+            r_SM_Main   <= s_RX_Stop_Bit;
+          else
+            r_RX_DV     <= '1';    -- Byte received successfully
+            r_Clk_Count <= 0;
+            r_SM_Main   <= s_Cleanup;
+          end if;
+
+
+        ----------------------------------------------------------
+        -- CLEANUP
+        -- One clock cycle pulse for o_RX_DV, then return idle.
+        ----------------------------------------------------------
+        when s_Cleanup =>
+          r_SM_Main <= s_Idle;
+          r_RX_DV   <= '0';
+
+
+        when others =>
+          r_SM_Main <= s_Idle;
+
+      end case;
+    end if;
+  end process p_UART_RX;
+
+  ----------------------------------------------------------------
+  -- OUTPUT ASSIGNMENTS
+  ----------------------------------------------------------------
+  o_RX_DV   <= r_RX_DV;      -- Data valid signal
+  o_RX_Byte <= r_RX_Byte;    -- Received 8-bit data
+   
+
+end rtl;

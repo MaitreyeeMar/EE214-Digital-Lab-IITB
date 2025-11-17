@@ -1,0 +1,49 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+entity myALU is
+  port (
+    S : in std_logic_vector(1 downto 0);
+    A : in std_logic_vector(3 downto 0);
+    B : in std_logic_vector(3 downto 0);
+    Y : out std_logic_vector(7 downto 0)
+  );
+end entity;
+architecture arch of myALU is
+function Shift(A, B : std_logic_vector(3 downto 0)) return std_logic_vector is
+-- declaring and initializing variables using aggregates
+variable A_extended : std_logic_vector(...) := (others => '0'); -- extend A to 8 bits
+variable shift_amount : integer := to_integer(unsigned(B(2 downto 0))); -- define shift amount
+variable result : std_logic_vector(...); --return result
+begin
+--use behavioral modeling to do shift operation
+	A_extended(3 downto 0) := A;
+	if B(3) = '0' then
+		result := std_logic_vector(shift_left(unsigned(A_extended),shift_amount))
+	else
+		result := std_logic_vector(shift_right(unsigned(A_extended),shift_amount))		
+end;
+begin
+-- complete VHDL code for various outputs of ALU based on select lines
+-- Hint: use if/else statement
+--
+-- function usage :
+-- signal_name <= shift(A,B)
+-- variable_name := shift(A,B)
+
+process(A,B,S)
+	temp : std_logic_vector(7 downto 0)
+	begin
+		if S="00" then
+		temp := Shift(A,B);
+		elsif S="01" then
+		temp := not (A&B);
+		elsif S="10" then
+		temp := std_logic_vector(unsigned(A) + unsigned(B));
+		elsif S="11" then
+		temp := std_logic_vector(unsigned(A) * unsigned(B));
+		else temp := (others => '0');
+		end if;
+    Y <= temp;		
+end process;
+end architecture;
